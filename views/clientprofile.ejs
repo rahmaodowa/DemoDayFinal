@@ -51,7 +51,7 @@
       <div class="container-3 w-container">
         <div class="nav-flex">
           <div>
-            <a href="index.html" class="brand w-nav-brand">
+            <a href="/index" class="brand w-nav-brand">
               <h3 class="heading">Let&#x27;s Talk</h3>
             </a>
           </div>
@@ -113,27 +113,77 @@
         </div>
       </div>
     </div>
-    <div class="section gray testimonials">
       <div class="container w-container">
         <div class="section-content-tittle">
           <p class="top-text">Your Therapist</p>
+
+          <% if(myTherapist){%>
+            <h1 class="top-text"> <%= myTherapist.local.name  %></h1>
+            <img src="/<%= myTherapist.local.profileImg %>" alt="">
+            <section class='container'>
+            <p class="basicInfo">Bio: <%= myTherapist.local.therapistInfo.bio %> </p>
+            <p class="basicInfo" >Location: <%= myTherapist.local.therapistInfo.location %> </p>
+          </section>
+
+
+
+
+
+
+
+          <% }else{%>
+
+
+          <h1> Your Match</h1>
+        </div>
+        <% therapistId = '' %>
+        <% for (let i = 0; i < allusers.length; i++) { %>
+        <% if (allusers[i].local.profiletype == "therapist") { %>
+        <% if (allusers[i].local.questions[0] == user.local.questions[0] && allusers[i].local.questions[1] == user.local.questions[1] && allusers[i].local.questions[2] == user.local.questions[2] ) { %>
+        <%= allusers[i].local.name %>
+        <img src="/<%= allusers[i].local.profileImg %>" alt="">
+        <% temp = [] %>
+        <%for(key in allusers[i].local.therapistInfo) { %>
+        <%if (allusers[i].local.therapistInfo.hasOwnProperty(key)) { %>
+        <% temp.push(allusers[i].local.therapistInfo[key]) %>
+        <% } %>
+        <% } %>
+        <p class="clientId hide"><%= user._id %></p>
+        ​ <p class="therapistId hide"><%= allusers[i]._id %></p>
+        <% therapistId = allusers[i]._id %>
+
+        <p class="basicInfo" >Bio: <%= temp[0] %> </p>
+        <p class="basicInfo">Location: <%= temp[1] %> </p>
+
+        <% var clients = allusers[i].local.therapistClients %>
+
+        <%for(k = 0; k < clients.length; k++) { %>
+          <% if (clients[k] == user._id) { %>
+            You're now a client of your Therapist!
+          <% } %>
+        <% } %>
+        <button class="addTherapist" type="button" name="addClientToTherapist">Click to Match with this Therapist</button>
+
+        <button class="ChangeTherapist" type="button" name="MatchOtherTherapists"><a href="/listoftherapists">List of Therapists</a></button>
+
+
+        <p class="basicInfo"><%= allusers[i].local.phone %></p>
+        <% } %>
+        <% } %>
+        <% } %>
+
+        </div>
+        <% } %>
+
+
+
+
+
         </div>
 
-        <div class="w-dyn-list">
-            <div role="list" class="w-dyn-items w-row">
-              <div role="listitem" class="w-dyn-item w-col w-col-4">
-                <div data-w-id="878528e7-c145-d875-d970-6ef1db69e16a" class="items-wrapper">
-                  <a href="#" class="w-inline-block">
-                    <div class="image-wrapper"><img style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;" data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_main_image_4dr%22%2C%22to%22%3A%22src%22%7D%5D" src="https://assets.website-files.com/5bb39a4bdeee4e1e1f49f800/5bbbd697293a42033e568b25_5bb4c684f487b425339a65e2_maarten-deckers-295105-unsplash-(1).png" alt="" sizes="(max-width: 479px) 83vw, (max-width: 767px) 90vw, 30vw" srcset="https://assets.website-files.com/5bb39a4bdeee4e1e1f49f800/5bbbd697293a42033e568b25_5bb4c684f487b425339a65e2_maarten-deckers-295105-unsplash-(1)-p-500.png 500w, https://assets.website-files.com/5bb39a4bdeee4e1e1f49f800/5bbbd697293a42033e568b25_5bb4c684f487b425339a65e2_maarten-deckers-295105-unsplash-(1).png 600w" class="project-image">
-                      <div style="opacity:" class="item-overlay"></div>
-                    </div>
-                  </a>
-                  <!-- <div class="items-content"><a href="#" class="item-tittle"></a> -->
-                    <div class="items-price"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+
+
 
 
 
@@ -203,62 +253,92 @@
     <div class="row">
 
       <!-- LOCAL INFORMATION -->
-      <div class="col-sm-6">
 
-        <% if(myTherapist){%>
-          <h1> My Therapist is</h1> <%= myTherapist.local.name  %>
-          <img src="/<%= myTherapist.local.profileImg %>" alt="">
-          <p>Bio: <%= myTherapist.local.therapistInfo.bio %> </p>
-          <p>Location: <%= myTherapist.local.therapistInfo.location %> </p>
+      <div class="container my-5">
 
+        <!-- Section: Block Content -->
+        <section>
 
+          <style>
+            .my-custom-scrollbar {
+              position: relative;
+              height: 250px;
+              overflow: auto;
+            }
+            .card-img-35 {
+              width: 35px;
+            }
+            .mt-3p {
+              margin-top: 3px;
+            }
+          </style>
 
+          <div class="card">
+            <div class="card-header white d-flex justify-content-between">
+              <p class="h5-responsive font-weight-bold mb-0">Direct Chat</p>
+              <ul class="list-unstyled d-flex align-items-center mb-0">
+                <li><span class="badge badge-pill badge-primary">3</span></li>
+                <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
+                <li><i class="fas fa-comments fa-sm pl-3"></i></li>
+                <li><i class="fas fa-times fa-sm pl-3"></i></li>
+              </ul>
+            </div>
+            <div class="card-body my-custom-scrollbar">
+              <div class="media">
+                <img class="avatar rounded-circle card-img-35 z-depth-1 d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg" alt="Generic placeholder image">
+                <div class="media-body">
+                  <p class="mt-0 font-weight-bold small mb-1">Johny Danish<span class="text-muted float-right small mt-3p">12 Nov 3:00 PM</span></p>
+                  <p class="mb-0 font-weight-light small grey lighten-2 p-2 rounded">Is this template really for free? That's unbelievable!</p>
+                </div>
+              </div>
 
+             	<div class="media mt-3">
+                <div class="media-body">
+                  <p class="mt-0 font-weight-bold small mb-1"><span class="text-muted small mt-3p">12 Nov 3:05 PM</span><span class="float-right">Alice Cooper</span></p>
+                  <p class="mb-0 font-weight-light small primary-color text-white p-2 rounded">You better believe it!</p>
+                </div>
+                <img class="avatar rounded-circle card-img-35 z-depth-1 d-flex ml-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" alt="Generic placeholder image">
+              </div>
 
-        <% }else{%>
+              <div class="media mt-3">
+                <img class="avatar rounded-circle card-img-35 z-depth-1 d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg" alt="Generic placeholder image">
+                <div class="media-body">
+                  <p class="mt-0 font-weight-bold small mb-1">Johny Danish<span class="text-muted float-right small mt-3p">12 Nov 6:17 PM</span></p>
+                  <p class="mb-0 font-weight-light small grey lighten-2 p-2 rounded">Working with MDB Admin on a great new app! Wanna join?</p>
+                </div>
+              </div>
 
+             	<div class="media mt-3">
+                <div class="media-body">
+                  <p class="mt-0 font-weight-bold small mb-1"><span class="text-muted small mt-3p">12 Nov 6:23 PM</span><span class="float-right">Alice Cooper</span></p>
+                  <p class="mb-0 font-weight-light small primary-color text-white p-2 rounded">I would love to.</p>
+                </div>
+                <img class="avatar rounded-circle card-img-35 z-depth-1 d-flex ml-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" alt="Generic placeholder image">
+              </div>
+            </div>
+            <div class="card-footer white py-3">
+              <div class="form-group mb-0">
+                <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="1" placeholder="Type message..."></textarea>
+                <div class="text-right pt-2">
+                  <button class="btn btn-primary btn-sm mb-0 mr-0">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <h1> Your Match</h1>
+        </section>
+        <!-- Section: Block Content -->
+
       </div>
-      <% therapistId = '' %>
-      <% for (let i = 0; i < allusers.length; i++) { %>
-      <% if (allusers[i].local.profiletype == "therapist") { %>
-      <% if (allusers[i].local.questions[0] == user.local.questions[0] && allusers[i].local.questions[1] == user.local.questions[1] && allusers[i].local.questions[2] == user.local.questions[2] ) { %>
-      <%= allusers[i].local.name %>
-      <img src="/<%= allusers[i].local.profileImg %>" alt="">
-      <% temp = [] %>
-      <%for(key in allusers[i].local.therapistInfo) { %>
-      <%if (allusers[i].local.therapistInfo.hasOwnProperty(key)) { %>
-      <% temp.push(allusers[i].local.therapistInfo[key]) %>
-      <% } %>
-      <% } %>
-      <p class="clientId hide"><%= user._id %></p>
-      ​ <p class="therapistId hide"><%= allusers[i]._id %></p>
-      <% therapistId = allusers[i]._id %>
-
-      <p>Bio: <%= temp[0] %> </p>
-      <p>Location: <%= temp[1] %> </p>
-
-      <% var clients = allusers[i].local.therapistClients %>
-
-      <%for(k = 0; k < clients.length; k++) { %>
-        <% if (clients[k] == user._id) { %>
-          You're now a client of your Therapist!
-        <% } %>
-      <% } %>
-
-      <button class="addTherapist" type="button" name="addClientToTherapist">Click to Match with this Therapist</button>
-
-      <button class="ChangeTherapist" type="button" name="MatchOtherTherapists"><a href="/listoftherapists">List of Therapists</a></button>
 
 
-      <p><%= allusers[i].local.phone %></p>
-      <% } %>
-      <% } %>
-      <% } %>
 
-    </div>
-    <% } %>
+
+
+
+
+      <div class="container">
+
     <section class="messages">
       <form id="formMessage" action="/clientMessage" method="post" onsubmit="return false">
         <input id="message" type="text" class="form-control" name="message">
@@ -267,7 +347,6 @@
           <input class="hide" name="therapistId" value="<%=therapistId%>">
       </form>
     </section>
-
 
 
 
@@ -370,6 +449,7 @@
             });
           // });
     </script>
+  </div>
 
 
 

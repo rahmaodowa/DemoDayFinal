@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-    <title>Pompeo - Webflow E-Commerce HTML website Template</title>
+    <title></title>
     <meta content="Pompeo is a Pottery &amp; Ceramics Webflow ecommerce template – this template is unique, clean &amp; simple. It is an ideal web solution for modern pottery classes, pottery workshop, ceramics store, pottery supplies shop &amp; events. It is also perfect for individual potter and handmade shop: Plates, Mugs, Dishes, Bowls." name="description">
     <meta content="Pompeo - Webflow E-Commerce HTML website Template" property="og:title">
     <meta content="Pompeo is a Pottery &amp; Ceramics Webflow ecommerce template – this template is unique, clean &amp; simple. It is an ideal web solution for modern pottery classes, pottery workshop, ceramics store, pottery supplies shop &amp; events. It is also perfect for individual potter and handmade shop: Plates, Mugs, Dishes, Bowls." property="og:description">
@@ -41,14 +41,14 @@
       <div class="container-3 w-container">
         <div class="nav-flex">
           <div>
-            <a href="index.html" class="brand w-nav-brand">
+            <a href="/index" class="brand w-nav-brand">
               <h3 class="heading">Let&#x27;s Talk</h3>
             </a>
           </div>
           <div class="link-block-flex">
-            <nav role="navigation" class="nav-menu w-nav-menu"><a href="/index" class="nav-link w-nav-link">Home</a><a href="about-us.html" aria-current="page" class="nav-link w-nav-link w--current">login</a><a href="shop.html" class="nav-link w-nav-link">sign up</a><a href="contact-us.html" class="nav-link w-nav-link">Contact</a></nav>
-            <div class="nav-menu">
+            <nav role="navigation" class="nav-menu w-nav-menu"><a href="/index" class="nav-link w-nav-link">Home</a><a href="/login" aria-current="page" class="nav-link w-nav-link w--current">login</a><a href="/signupClient" class="nav-link w-nav-link">sign up</a>
               <div data-node-type="commerce-cart-wrapper" data-open-product="" data-wf-cart-type="leftSidebar" data-wf-cart-query="" data-wf-page-link-href-prefix="" class="w-commerce-commercecartwrapper">
+                <a href="/logout" class="nav-link w-nav-link">Logout</a>
                 <a href="#" data-node-type="commerce-cart-open-link" class="w-commerce-commercecartopenlink cart-button w-inline-block">
                   <div style="display:none" data-count-hide-rule="always" class="w-commerce-commercecartopenlinkcount">0</div>
                 </a>
@@ -79,7 +79,7 @@
                         <div class="text-block-2">No items found.</div>
                       </div>
                       <div style="display:none" data-node-type="commerce-cart-error" class="w-commerce-commercecarterrorstate error-state">
-                        <div class="w-cart-error-msg" data-w-cart-quantity-error="Product is not available in this quantity." data-w-cart-checkout-error="Checkout is disabled on this site." data-w-cart-general-error="Something went wrong when adding this item to the cart." data-w-cart-cart_order_min-error="Cart failed.">Product is not available in this quantity.</div>
+                        <div class="w-cart-error-msg" data-w-cart-quantity-error="Product is not available in this quantity." data-w-cart-checkout-error="Checkout is disabled on this site." data-w-cart-general-error="Something went wrong when adding this item to the cart." data-w-cart-cart_order_min-error="Cart failed."></div>
                       </div>
                     </div>
                   </div>
@@ -97,7 +97,9 @@
       <div class="container about-section w-container">
         <div class="about-hero-block">
           <h1 class="page-title">Therapist Profile</h1>
-          <p class="detail-paragraph subpage">Browse through the different therapists on Let&#x27;s Talk. If you see one that you would like to be matched with, click &quot;Match with therapist&quot; button!</p>
+          <p class="detail-paragraph subpage"><h1 class="page-title">  <% if (user.local.email) { %>
+            Welcome <%= user.local.name %>!</h1>
+            <% } %>
         </div>
       </div>
     </div>
@@ -136,7 +138,6 @@
           </div>
         </div>
       </div>
-      <div class="vertical-category right">Our Talented Crew<span></span></div>
     </div>
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=5f853f28b56c052058db4537" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -146,26 +147,6 @@
 
 
 <body>
-  <span class="logo">Let's Talk</span>
-  <ul class="nav">
-    <li>
-      <a href="/index">Home</a>
-    </li>
-    <li>
-      <a href="https://www.self.com/story/black-mental-health-resources">Resources</a>
-    </li>
-    <li>
-      <a href='/login'>Log In</a>
-    </li>
-    <li>
-      <a href='/signupClient'>SIGNUP</a>
-    </li>
-
-    <li>
-      <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </li>
-
-  </ul>
 
 
 
@@ -178,7 +159,6 @@
 
     <div class="page-header text-center">
       <h1>Therapist Profile Page</h1>
-      <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
     <div class="row">
