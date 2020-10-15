@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-sm-6 col-sm-offset-3">
+
+      <h1> Signup</h1>
+      <ul class="tabs">
+        <li> Client Signup </li>
+        <li> <a href="/signupTherapist"> Therapist Signup</a> </li>
+      </ul>
+
+      <% if (message.length > 0) { %>
+      <div class="alert alert-danger"><%= message %></div>
+      <% } %>
+
+      <!-- LOGIN FORM -->
+      <form action="/signupClient" method="post">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" name="email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" name="password">
+        </div>
+        <!-- <section class='container'>
+          <label for="color">What type of counseling are you looking for?</label>
+          <select name="type" id="type">
+          <option value="red">Individual counsel (for myself)</option>
+          <option value="blue">Couple counseling (for myself & my partner)</option>
+          <option value="red">For my child</option> -->
+
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" name="name">
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="number" class="form-control" name="phone number">
+        </div>
+
+        <label for="first">What type of counseling are you looking for?</label>
+        <select class="Questions" name="Q1">
+          <option value="0">Individual Counseling</option>
+          <option value="1">Couple Counseling</option>
+          <option value="2">For my child</option>
+        </select>
+        <label for="first">How old are you?</label>
+        <select class="Questions" name="Q2">
+          <option value="3">Child</option>
+          <option value="4">Teen</option>
+          <option value="5">21+</option>
+        </select>
+
+        <label for="first">What type of treatment would you prefer?</label>
+        <select class="Questions" name="Q3">
+          <option value="6">CBT</option>
+          <option value="7">Psychodynamic</option>
+          <option value="8">Applied Behavior Therapy</option>
+        </select>
+        <input class="hide" name="profiletype" value="client">
+
+
+
+        <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+      </form>
+
+      <hr>
+      <!-- How Old are you?
+        How do you identify?
+        Relationship Status?
+        Have you been in therapy before?
+        What do you hope to get out of Therapy? -->
+
+
+      <p>Already have an account? <a href="/login">Login</a></p>
+      <p>Or go <a href="/">home</a>.</p>
+
+    </div>
+  </div>
+</body>
+
+</html>

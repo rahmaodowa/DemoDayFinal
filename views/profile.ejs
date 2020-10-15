@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Therapy</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/style.css">
+  
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="page-header text-center">
+      <h1 class="h1"> Therapist Messages Page</h1>
+      <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <h3>Messages</h3>
+    <ul id="messages" class="messages">
+      <% var sortedMessages = messages.sort((a, b) => b.datetime - a.datetime) %>
+      <% var profiletype %>
+      <% for(var i=0; i < sortedMessages.length; i++) { %>
+      <% if (sortedMessages[i].from == user._id) { %>
+      <%profiletype = 'sender'%>
+      <% } else { %>
+      <% profiletype = 'receiver'%>
+      <% } %>
+      <li class="message">
+        <span class="<%= profiletype%>"><%= messages[i].date %></span>
+        <span class="<%= profiletype%>"><%= messages[i].time %></span>
+        <span class="<%= profiletype%>"><%= messages[i].message %></span>
+        <span><i class="fa fa-trash <%= profiletype%> " aria-hidden="true"></i></span>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+  <section class="messages">
+    <form action="/therapistMessage" method="post">
+      <input id="message" type="text" class="form-control" name="message">
+      <button id="sendMessage" type="submit">Send Message</button>
+      ​<input class= "hide" name="therapistId" value="<%= user._id %>">
+      <input class= "hide" name="clientId" value="<%= clientInfo[0]._id %>">
+
+    </form>
+  </section>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+      <script>
+        var socket = io();
+      </script>
+
+
+  <script>
+        // $(function () {
+          // var socket = io();
+          var sendMessageButton = document.getElementById('sendMessage');
+          sendMessageButton.addEventListener('click', function(e){
+            e.preventDefault(); // prevents page reloading
+            var messageElement = document.getElementById('message');
+            const msg = {
+              msg: messageElement.value,
+              to: "<%= clientInfo[0]._id %>",
+              from: "<%= user._id %>"
+            }
+            console.log("Trying to send Message", msg)
+            socket.emit('chat message', JSON.stringify(msg));
+            fetch('/therapistMessage', {
+                method: 'post',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  'clientId': "<%= clientInfo[0]._id %>",
+                  'therapistId': "<%= user._id %>" ,
+                  'message': messageElement.value
+                })
+              })
+            messageElement.value='';
+            return false;
+          });
+          socket.on('chat message', function(msg){
+            const jsonMsg = JSON.parse(msg)
+            if(jsonMsg.to === "<%= user._id %>" || jsonMsg.from === "<%= user._id %>"){
+              var ul = document.getElementById('messages');
+              var li = document.createElement("LI");
+              var textnode = document.createTextNode(jsonMsg.msg);
+              var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+              var today = new Date();
+              var day = today.getDay()
+              var dd = today.getDate();
+              var mm = today.getMonth() + 1;
+              var yyyy = today.getFullYear();
+              var date = daysOfWeek[day] + " " + mm + '/' + dd + '/' + yyyy;
+              var time = today.toLocaleTimeString('en-US')
+              var ul = document.getElementById('messages');
+              var li = document.createElement("LI");
+              var dateSpan = document.createElement("span");
+              var timeSpan = document.createElement("span");
+              var messageSpan = document.createElement("span")
+              var dateTextNode  = document.createTextNode(date);
+              var timeTextNode = document.createTextNode(time);
+              var messageTextNode = document.createTextNode(jsonMsg.msg);
+              dateSpan.appendChild(dateTextNode);
+              timeSpan.appendChild(timeTextNode);
+              messageSpan.appendChild(messageTextNode);
+              dateSpan.classList.add("<%= profiletype%>")
+              timeSpan.classList.add("<%= profiletype%>")
+              messageSpan.classList.add("<%= profiletype%>")
+
+
+
+              li.appendChild(dateSpan);
+              li.appendChild(timeSpan);
+              li.appendChild(messageSpan);
+
+
+              ul.appendChild(li)
+              li.classList.add('message');
+              // $('#messages').append($('<li>').text(jsonMsg.from + ": "+ jsonMsg.msg));
+            }
+          });
+        // });
+  </script>
+
+
+
+
+
+</body>
+
+</html>

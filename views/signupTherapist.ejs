@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-sm-6 col-sm-offset-3">
+
+      <h1> Signup</h1>
+      <ul class="tabs">
+        <li> <a href="/signupClient"> Client Signup</a> </li>
+        <li> Therapist Signup </li>
+
+      </ul>
+
+      <% if (message.length > 0) { %>
+      <div class="alert alert-danger"><%= message %></div>
+      <% } %>
+
+      <!-- LOGIN FORM -->
+      <form action="/signupTherapist" method="post">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" name="email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" name="password">
+        </div>
+
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" name="name">
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" class="form-control" name="phone">
+        </div>
+
+
+        <label for="first">What type of groups do you work with?</label>
+        <select class="Questions" name="Q1">
+          <option value="0">Individual Counseling</option>
+          <option value="1">Couple Counseling</option>
+          <option value="2">Children</option>
+        </select>
+        <label for="first">What age group do you work with?</label>
+        <select class="Questions" name="Q2">
+          <option value="3">Children</option>
+          <option value="4">Teens</option>
+          <option value="5">21+</option>
+        </select>
+
+        <label for="first">What do you specialize in?</label>
+        <select class="Questions" name="Q3">
+          <option value="6">CBT</option>
+          <option value="7">Psychodynamic</option>
+          <option value="8">Applied Behavior Therapy</option>
+        </select>
+        <!-- check input type, name should be the same on the route.js question1 : req.body.question1 -->
+        <input class="hide" name="profiletype" value="therapist">
+        <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+      </form>
+
+
+
+
+
+
+
+      <hr>
+
+      <p>Already have an account? <a href="/login">Login</a></p>
+      <p>Or go <a href="/">home</a>.</p>
+
+    </div>
+  </div>
+</body>
+
+</html>
