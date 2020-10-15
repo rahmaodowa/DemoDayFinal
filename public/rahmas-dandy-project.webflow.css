@@ -203,6 +203,11 @@
   height: 16px;
 }
 
+
+.hide{
+  display: none;
+}
+
 .w-commerce-commercecartformwrapper {
   display: -webkit-box;
   display: -webkit-flex;
