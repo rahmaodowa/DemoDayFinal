@@ -40,15 +40,18 @@ a {
 
 .receiver{
   width: 40%;
+  border-radius: 5px;
   display: block;
   background-color: #e6e5eb;
   float: left;
   margin-left: 40px;
 
+
 }
 
 .sender{
   color:blue;
+  border-radius: 5px;
   width: 40%;
   display: block;
   padding-left: 5rem;

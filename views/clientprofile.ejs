@@ -25,6 +25,9 @@
     <meta content="Webflow" name="generator">
     <link href="/normalize.css" rel="stylesheet" type="text/css">
     <link href="/webflow.css" rel="stylesheet" type="text/css">
+
+    <!-- <link rel="stylesheet" href="/style.css"> -->
+
     <link href="/rahmas-dandy-project.webflow.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
     <script type="text/javascript">WebFont.load({  google: {    families: ["Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic","Libre Franklin:200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Pacifico:regular","Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic","Playfair Display:regular,italic,700,700italic,900,900italic:cyrillic,latin"]  }});</script>
@@ -175,7 +178,38 @@
         </div>
         <% } %>
 
+        <div class="class="container my-5">
+            <ul id="messages" class="messages">
+              <h3>Messages</h3>
+              <% var sortedMessages = messages.sort((a, b) => b.datetime - a.datetime) %>
+              <% var profiletype %>
+              <% for(var i=0; i < sortedMessages.length; i++) { %>
+              <% if (sortedMessages[i].from == user._id) { %>
+              <%profiletype = 'sender'%>
+              <% } else { %>
+              <% profiletype = 'receiver'%>
+              <% } %>
+                <li class="message">
+                <span class="<%= profiletype%>"><%= messages[i].date %> <%= messages[i].time %> <span><%= messages[i].message %></span></span>
 
+
+                <span><i class="fa fa-trash <%= profiletype%> " aria-hidden="true"></i></span>
+              </li>
+              <% } %>
+            </ul>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+                <script>
+                  var socket = io();
+                </script>
+
+                <section class="messages">
+                  <form id="formMessage" action="/clientMessage" method="post" onsubmit="return false">
+                    <input id="message" type="text" class="form-control" name="message">
+                    <button id="sendMessage" type="submit">Send Message</button>
+                    ​<input class= "hide" name="clientId" value="<%= user._id %>">
+                      <input class="hide" name="therapistId" value="<%=therapistId%>">
+                  </form>
+                </section>
 
 
 
@@ -252,84 +286,6 @@
 
     <div class="row">
 
-      <!-- LOCAL INFORMATION -->
-
-      <div class="container my-5">
-
-        <!-- Section: Block Content -->
-        <section>
-
-          <style>
-            .my-custom-scrollbar {
-              position: relative;
-              height: 250px;
-              overflow: auto;
-            }
-            .card-img-35 {
-              width: 35px;
-            }
-            .mt-3p {
-              margin-top: 3px;
-            }
-          </style>
-
-          <div class="card">
-            <div class="card-header white d-flex justify-content-between">
-              <p class="h5-responsive font-weight-bold mb-0">Direct Chat</p>
-              <ul class="list-unstyled d-flex align-items-center mb-0">
-                <li><span class="badge badge-pill badge-primary">3</span></li>
-                <li><i class="far fa-window-minimize fa-sm pl-3"></i></li>
-                <li><i class="fas fa-comments fa-sm pl-3"></i></li>
-                <li><i class="fas fa-times fa-sm pl-3"></i></li>
-              </ul>
-            </div>
-            <div class="card-body my-custom-scrollbar">
-              <div class="media">
-                <img class="avatar rounded-circle card-img-35 z-depth-1 d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg" alt="Generic placeholder image">
-                <div class="media-body">
-                  <p class="mt-0 font-weight-bold small mb-1">Johny Danish<span class="text-muted float-right small mt-3p">12 Nov 3:00 PM</span></p>
-                  <p class="mb-0 font-weight-light small grey lighten-2 p-2 rounded">Is this template really for free? That's unbelievable!</p>
-                </div>
-              </div>
-
-             	<div class="media mt-3">
-                <div class="media-body">
-                  <p class="mt-0 font-weight-bold small mb-1"><span class="text-muted small mt-3p">12 Nov 3:05 PM</span><span class="float-right">Alice Cooper</span></p>
-                  <p class="mb-0 font-weight-light small primary-color text-white p-2 rounded">You better believe it!</p>
-                </div>
-                <img class="avatar rounded-circle card-img-35 z-depth-1 d-flex ml-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" alt="Generic placeholder image">
-              </div>
-
-              <div class="media mt-3">
-                <img class="avatar rounded-circle card-img-35 z-depth-1 d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg" alt="Generic placeholder image">
-                <div class="media-body">
-                  <p class="mt-0 font-weight-bold small mb-1">Johny Danish<span class="text-muted float-right small mt-3p">12 Nov 6:17 PM</span></p>
-                  <p class="mb-0 font-weight-light small grey lighten-2 p-2 rounded">Working with MDB Admin on a great new app! Wanna join?</p>
-                </div>
-              </div>
-
-             	<div class="media mt-3">
-                <div class="media-body">
-                  <p class="mt-0 font-weight-bold small mb-1"><span class="text-muted small mt-3p">12 Nov 6:23 PM</span><span class="float-right">Alice Cooper</span></p>
-                  <p class="mb-0 font-weight-light small primary-color text-white p-2 rounded">I would love to.</p>
-                </div>
-                <img class="avatar rounded-circle card-img-35 z-depth-1 d-flex ml-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" alt="Generic placeholder image">
-              </div>
-            </div>
-            <div class="card-footer white py-3">
-              <div class="form-group mb-0">
-                <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="1" placeholder="Type message..."></textarea>
-                <div class="text-right pt-2">
-                  <button class="btn btn-primary btn-sm mb-0 mr-0">Send</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </section>
-        <!-- Section: Block Content -->
-
-      </div>
 
 
 
@@ -337,41 +293,8 @@
 
 
 
-      <div class="container">
-
-    <section class="messages">
-      <form id="formMessage" action="/clientMessage" method="post" onsubmit="return false">
-        <input id="message" type="text" class="form-control" name="message">
-        <button id="sendMessage" type="submit">Send Message</button>
-        ​<input class= "hide" name="clientId" value="<%= user._id %>">
-          <input class="hide" name="therapistId" value="<%=therapistId%>">
-      </form>
-    </section>
 
 
-
-    <h3>Messages</h3>
-    <ul id="messages" class="messages">
-      <% var sortedMessages = messages.sort((a, b) => b.datetime - a.datetime) %>
-      <% var profiletype %>
-      <% for(var i=0; i < sortedMessages.length; i++) { %>
-      <% if (sortedMessages[i].from == user._id) { %>
-      <%profiletype = 'sender'%>
-      <% } else { %>
-      <% profiletype = 'receiver'%>
-      <% } %>
-      <li class="message">
-        <span class="<%= profiletype%>"><%= messages[i].date %></span>
-        <span class="<%= profiletype%>"><%= messages[i].time %></span>
-        <span class="<%= profiletype%>"><%= messages[i].message %></span>
-        <span><i class="fa fa-trash <%= profiletype%> " aria-hidden="true"></i></span>
-      </li>
-      <% } %>
-    </ul>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-        <script>
-          var socket = io();
-        </script>
 
 
     <script>
@@ -449,7 +372,6 @@
             });
           // });
     </script>
-  </div>
 
 
 

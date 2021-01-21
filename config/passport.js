@@ -76,7 +76,7 @@ module.exports = function(passport) {
             location: '',
             therapist: ''
           }
-          newUser.local.profileImg = "img/afroWoman.png"
+          newUser.local.profileImg = "img/greyman.png"
           newUser.local.phone = req.body.phone;
           // save the user
           newUser.save(function(err) {

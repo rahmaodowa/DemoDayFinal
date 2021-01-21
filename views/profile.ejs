@@ -27,10 +27,7 @@
       <% profiletype = 'receiver'%>
       <% } %>
       <li class="message">
-        <span class="<%= profiletype%>"><%= messages[i].date %></span>
-        <span class="<%= profiletype%>"><%= messages[i].time %></span>
-        <span class="<%= profiletype%>"><%= messages[i].message %></span>
-        <span><i class="fa fa-trash <%= profiletype%> " aria-hidden="true"></i></span>
+        <span class="<%= profiletype%>"><%= messages[i].date %> <%= messages[i].time %> <span><%= messages[i].message %></span></span>
       </li>
       <% } %>
     </ul>
