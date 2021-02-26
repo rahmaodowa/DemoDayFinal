@@ -2843,8 +2843,8 @@ p {
   display: flex;
   overflow: hidden;
   height: auto;
-  padding-top: 200px;
-  padding-bottom: 130px;
+  padding-top: 60px;
+  padding-bottom: 1px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
